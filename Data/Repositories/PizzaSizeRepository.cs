@@ -11,7 +11,6 @@ public interface IPizzaSizeRepository
 
 public class PizzaSizeRepository : IPizzaSizeRepository
 {
-
     private readonly PizzaDatabaseContext _context;
 
     public PizzaSizeRepository(PizzaDatabaseContext context)
@@ -28,5 +27,4 @@ public class PizzaSizeRepository : IPizzaSizeRepository
     {
         return await _context.PizzaSizes.FirstOrDefaultAsync(s => s.Id == sizeId);
     }
-
 }

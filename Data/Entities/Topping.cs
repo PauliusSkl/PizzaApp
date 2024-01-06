@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PizzaApp.Data.Entities
+namespace PizzaApp.Data.Entities;
+
+public class Topping
 {
-    public class Topping
-    {
-
-        [Key]
-        public int Id { get; set; }
-
-        public required string Name { get; set; }
-
-        public decimal Price { get; set; }
-
-    }
+    [Key]
+    public int Id { get; set; }
+    public required string Name { get; set; }
+    public decimal Price { get; set; }
 }

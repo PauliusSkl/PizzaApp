@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PizzaApp.Data.Entities
+namespace PizzaApp.Data.Entities;
+
+public class PizzaSize
 {
-    public class PizzaSize
-    {
-        [Key]
-        public int Id { get; set; }
-        public required string Size { get; set; }
-        public decimal Price { get; set; }
-    }
+    [Key]
+    public int Id { get; set; }
+    public required string Size { get; set; }
+    public decimal Price { get; set; }
 }

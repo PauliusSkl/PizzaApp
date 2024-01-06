@@ -7,15 +7,12 @@ namespace PizzaApp.Controllers;
 [ApiController]
 public class PizzaController : ControllerBase
 {
-
     private readonly IPizzaOrderService _pizzaOrderService;
 
     public PizzaController(IPizzaOrderService pizzaOrderService)
     {
         _pizzaOrderService = pizzaOrderService;
     }
-
-
 
     [HttpGet]
     [Route("api/toppings")]
@@ -41,9 +38,6 @@ public class PizzaController : ControllerBase
         var pizzas = await _pizzaOrderService.GetAllPizzaOrdersAsync();
         return Ok(pizzas);
     }
-
-
-
 
     [HttpPost]
     [Route("api/pizzas")]

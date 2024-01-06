@@ -1,10 +1,7 @@
-﻿namespace PizzaApp.Data.Models
+﻿namespace PizzaApp.Data.Models;
+
+public record UnfinishedPizzaDto
 {
-    public record UnfinishedPizzaDto
-    {
-        public int Size { get; set; }
-
-        public required List<int> ToppingIds { get; set; }
-
-    }
+    public int Size { get; set; }
+    public required List<int> ToppingIds { get; set; }
 }

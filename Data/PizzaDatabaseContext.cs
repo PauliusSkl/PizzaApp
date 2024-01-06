@@ -12,7 +12,6 @@ public class PizzaDatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<Topping>().HasData(
             new Topping { Id = 1, Name = "Pepperoni", Price = 1 },
             new Topping { Id = 2, Name = "Mushrooms", Price = 1 },
@@ -31,7 +30,6 @@ public class PizzaDatabaseContext : DbContext
 
         modelBuilder.Entity<PizzaOrderTopping>()
        .HasKey(pt => new { pt.PizzaOrderId, pt.ToppingId });
-
     }
 
     public DbSet<PizzaOrder> Pizzas { get; set; }
