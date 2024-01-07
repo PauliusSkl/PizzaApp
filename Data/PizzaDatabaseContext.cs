@@ -19,7 +19,9 @@ public class PizzaDatabaseContext : DbContext
             new Topping { Id = 4, Name = "Sausage", Price = 1 },
             new Topping { Id = 5, Name = "Bacon", Price = 1 },
             new Topping { Id = 6, Name = "Extra cheese", Price = 1 },
-            new Topping { Id = 7, Name = "Black olives", Price = 1 }
+            new Topping { Id = 7, Name = "Black olives", Price = 1 },
+            new Topping { Id = 8, Name = "Green peppers", Price = 1 },
+            new Topping { Id = 9, Name = "Pineapple", Price = 1 }
         );
 
         modelBuilder.Entity<PizzaSize>().HasData(

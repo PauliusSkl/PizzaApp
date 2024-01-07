@@ -6,4 +6,6 @@ public record PizzaOrderDto
     public decimal TotalPrice { get; set; }
     public required string Size { get; set; }
     public required List<string> Toppings { get; set; }
+
+    public DateTime CreationDate { get; set; }
 }
