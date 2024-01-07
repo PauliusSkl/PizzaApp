@@ -7,7 +7,7 @@ namespace PizzaApp.Services;
 
 public interface IPizzaOrderService
 {
-    Task<decimal> CalculatePriceFromDto(UnfinishedPizzaDto unfinishedPizza);
+    Task<decimal> CalculatePriceFromUnfinishedPizza(UnfinishedPizzaDto unfinishedPizza);
     Task<PizzaOrderDto?> CreatePizzaOrderAsync(UnfinishedPizzaDto unfinishedPizza);
     Task<List<PizzaOrderDto>> GetAllPizzaOrdersAsync();
     Task<List<PizzaSize>> GetAllPizzaSizesAsync();
@@ -41,7 +41,16 @@ public class PizzaOrderService : IPizzaOrderService
     {
         var pizzas = await _pizzaOrderRepository.GetAllPizzaOrdersAsync();
 
-        return pizzas;
+        var pizzaOrdersDtos = pizzas.Select(p => new PizzaOrderDto
+        {
+            Id = p.Id,
+            TotalPrice = p.TotalPrice,
+            Size = p.Size.Size,
+            Toppings = p.PizzaOrderToppings.Select(pt => pt.Topping.Name).ToList(),
+            CreationDate = p.CreationDate
+        }).ToList();
+
+        return pizzaOrdersDtos;
     }
 
     public async Task<PizzaOrderDto?> CreatePizzaOrderAsync(UnfinishedPizzaDto unfinishedPizza)
@@ -57,11 +66,35 @@ public class PizzaOrderService : IPizzaOrderService
 
         decimal currentPrice = CalculatePrice(pizzaSize, toppings);
 
-        var pizzaOrder = await _pizzaOrderRepository.CreatePizzaOrderAsync(pizzaSize, toppings, currentPrice);
+        var pizzaOrder = new PizzaOrder
+        {
+            Size = pizzaSize,
+            TotalPrice = currentPrice,
+            CreationDate = DateTime.UtcNow
+        };
 
-        return pizzaOrder;
+        foreach (var topping in toppings)
+        {
+            pizzaOrder.PizzaOrderToppings.Add(new PizzaOrderTopping
+            {
+                Topping = topping
+            });
+        }
+
+        await _pizzaOrderRepository.CreatePizzaOrderAsync(pizzaOrder);
+
+        var pizzaOrderDto = new PizzaOrderDto
+        {
+            Id = pizzaOrder.Id,
+            TotalPrice = pizzaOrder.TotalPrice,
+            Size = pizzaOrder.Size.Size,
+            Toppings = pizzaOrder.PizzaOrderToppings.Select(pt => pt.Topping.Name).ToList(),
+            CreationDate = pizzaOrder.CreationDate
+        };
+
+        return pizzaOrderDto;
     }
-    public async Task<decimal> CalculatePriceFromDto(UnfinishedPizzaDto unfinishedPizza)
+    public async Task<decimal> CalculatePriceFromUnfinishedPizza(UnfinishedPizzaDto unfinishedPizza)
     {
         var pizzaSize = await _pizzaSizeRepository.GetSpecificPizzaSize(unfinishedPizza.Size);
 

@@ -57,7 +57,7 @@ public class PizzaController : ControllerBase
     [Route("api/pizzas/current-price")]
     public async Task<IActionResult> GetCurrentPizzaPrice(UnfinishedPizzaDto unfinishedPizza)
     {
-        decimal currentPrice = await _pizzaOrderService.CalculatePriceFromDto(unfinishedPizza);
+        decimal currentPrice = await _pizzaOrderService.CalculatePriceFromUnfinishedPizza(unfinishedPizza);
 
         if (currentPrice == -1)
         {
