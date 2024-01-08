@@ -121,6 +121,11 @@ public class PizzaOrderService : IPizzaOrderService
             currentPrice += topping.Price;
         }
 
+        if (toppings.Count > 3)
+        {
+            currentPrice -= currentPrice * 0.1m;
+        }
+
         return currentPrice;
     }
 }
